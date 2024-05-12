@@ -11,7 +11,7 @@ function activate(context) {
         const message = "Menu/Title of extension is clicked !";
         vscode.window.showInformationMessage(message);
     }));
-    let openWebView = vscode.commands.registerCommand('vscodeSidebar.openview', () => {
+    let openWebView = vscode.commands.registerCommand("vscodeSidebar.openview", () => {
         vscode.window.showInformationMessage('Command " Sidebar View [vscodeSidebar.openview] " called.');
     });
     context.subscriptions.push(openWebView);

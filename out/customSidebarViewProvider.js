@@ -26,29 +26,39 @@ class CustomSidebarViewProvider {
         const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "reset.css"));
         const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "vscode.css"));
         const stylesheetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "main.css"));
-        let imageUrl = '';
+        let imageUrl = "";
         let message = "";
         if (numProblems === 0) {
-            imageUrl = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "0errors.png")).toString();
+            imageUrl = webview
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "0errors.png"))
+                .toString();
             message = "you make the cat very happy!";
         }
         else if (numProblems >= 1 && numProblems < 3) {
-            imageUrl = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "3errors.png")).toString();
+            imageUrl = webview
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "3errors.png"))
+                .toString();
             message = "(uh oh)";
         }
         else if (numProblems >= 3 && numProblems < 6) {
-            imageUrl = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "6errors.png")).toString();
+            imageUrl = webview
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "6errors.png"))
+                .toString();
             message = "eughh what's that...";
         }
         else if (numProblems >= 6 && numProblems < 10) {
-            imageUrl = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10errors.png")).toString();
+            imageUrl = webview
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10errors.png"))
+                .toString();
             message = "dude look at what you've done-";
         }
         else {
-            imageUrl = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10errors.png")).toString();
+            imageUrl = webview
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10errors.png"))
+                .toString();
             message = "uhm hello friend, just letting you know, there's code in your bugs";
         }
-        const errorMessages = diagnostics.map(diagnostic => {
+        const errorMessages = diagnostics.map((diagnostic) => {
             const lineNumber = diagnostic.range.start.line + 1;
             return `<li id="individualErrors">[Line ${lineNumber}]: ${diagnostic.message}</li>`;
         });
@@ -76,7 +86,7 @@ class CustomSidebarViewProvider {
             <p></p>
             <h3>${message}</h3>
             <ul id="errorMessages">
-                ${errorMessages.join('')}
+                ${errorMessages.join("")}
             </ul>
         </body>
 

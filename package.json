@@ -1,88 +1,82 @@
 {
-  "name": "catface",
-  "displayName": "CatFace",
-  "description": "Cats' faces that correlate to the bugs in your code!",
-  "version": "2.1.2",
-  "publisher": "JoshuaLong",
-  "icon": "assets/0errors.png",
-  "homepage": "https://github.com/Sadliquid/CatFace",
-  "license": "BSD-3-Clause",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Sadliquid/CatFace"
-  },
-  "engines": {
-    "vscode": "^1.61.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onCommand:vscodeSidebar.openview",
-    "onView:vscodeSidebar.openview"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "custom-activitybar",
-          "title": "CatFace",
-          "icon": "assets/logo_bito.svg"
-        }
-      ]
+    "name": "catface",
+    "displayName": "CatFace",
+    "description": "Cats' faces that correlate to the bugs in your code!",
+    "version": "2.1.2",
+    "publisher": "JoshuaLong",
+    "icon": "assets/0errors.png",
+    "homepage": "https://github.com/Sadliquid/CatFace",
+    "license": "BSD-3-Clause",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Sadliquid/CatFace"
     },
-    "views": {
-      "custom-activitybar": [
-        {
-          "type": "webview",
-          "id": "vscodeSidebar.openview",
-          "name": "View",
-          "contextualTitle": "View"
-        }
-      ]
+    "engines": {
+        "vscode": "^1.61.0"
     },
-    "commands": [
-      {
-        "command": "vscodeSidebar.openview",
-        "title": "Sidebar View"
-      },
-      {
-        "command": "vscodeSidebar.menu.view",
-        "category": "vscode-extension-sidebar-html",
-        "title": "Sample WebView in VS Code Sidebar",
-        "icon": "$(clear-all)"
-      }
+    "categories": [
+        "Other"
     ],
-    "menus": {
-      "view/title": [
-        {
-          "command": "vscodeSidebar.menu.view",
-          "group": "navigation",
-          "when": "view == vscodeSidebar.openview"
+    "activationEvents": [
+        "onCommand:vscodeSidebar.openview",
+        "onView:vscodeSidebar.openview"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "custom-activitybar",
+                    "title": "CatFace",
+                    "icon": "assets/logo_bito.svg"
+                }
+            ]
+        },
+        "views": {
+            "custom-activitybar": [
+                {
+                    "type": "webview",
+                    "id": "vscodeSidebar.openview",
+                    "name": "View",
+                    "contextualTitle": "View"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "vscodeSidebar.openview",
+                "title": "Sidebar View"
+            },
+            {
+                "command": "vscodeSidebar.menu.view",
+                "category": "vscode-extension-sidebar-html",
+                "title": "Sample WebView in VS Code Sidebar",
+                "icon": "$(clear-all)"
+            }
+        ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "vscodeSidebar.menu.view",
+                    "group": "navigation",
+                    "when": "view == vscodeSidebar.openview"
+                }
+            ]
         }
-      ]
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "build": "tsc",
+        "lint": "eslint src --ext ts",
+        "format": "prettier --write ."
+    },
+    "devDependencies": {
+        "@types/node": "20.x",
+        "@types/vscode": "^1.89.0",
+        "@typescript-eslint/eslint-plugin": "^7.8.0",
+        "@typescript-eslint/parser": "^7.8.0",
+        "eslint": "^8.56.0",
+        "prettier": "^3.2.5",
+        "typescript": "^5.4.5"
     }
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/glob": "^7.1.4",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "14.x",
-    "@types/vscode": "^1.61.0",
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
-    "@vscode/test-electron": "^1.6.2",
-    "eslint": "^7.32.0",
-    "glob": "^7.1.7",
-    "mocha": "^9.1.1",
-    "typescript": "^4.9.5"
-  }
 }
