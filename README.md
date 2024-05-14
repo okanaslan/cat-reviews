@@ -24,26 +24,6 @@ Simply just install, and BOOM! It's in action! Click on the extension on your si
 
 Initial release
 
-### 1.1.0
-
-Stable production release
-
-### 1.2.0
-
-Minor changes and updates
-
-### 2.0.1
-
-Improved usability
-
-### 2.1.1
-
-Further improved usability
-
-### 2.1.2
-
-Updated extension details
-
 ---
 
 [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)

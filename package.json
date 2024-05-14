@@ -1,11 +1,11 @@
 {
-    "name": "catface",
-    "displayName": "CatFace",
-    "description": "Cats' faces that correlate to the bugs in your code!",
-    "version": "2.1.2",
-    "publisher": "JoshuaLong",
+    "name": "catreview",
+    "displayName": "Cat Review",
+    "description": "Cats review your code!",
+    "version": "1.0.0",
+    "publisher": "okanaslan",
     "icon": "assets/0errors.png",
-    "homepage": "https://github.com/Sadliquid/CatFace",
+    "homepage": "https://github.com/okanaslan/CatFace",
     "license": "BSD-3-Clause",
     "repository": {
         "type": "git",
@@ -16,10 +16,6 @@
     },
     "categories": [
         "Other"
-    ],
-    "activationEvents": [
-        "onCommand:vscodeSidebar.openview",
-        "onView:vscodeSidebar.openview"
     ],
     "main": "./out/extension.js",
     "contributes": {

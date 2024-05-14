@@ -6,12 +6,9 @@ class CustomSidebarViewProvider {
     constructor(extensionUri) {
         this._extensionUri = extensionUri;
     }
-    resolveWebviewView(webviewView, context, token) {
+    resolveWebviewView(webviewView) {
         this._view = webviewView;
-        webviewView.webview.options = {
-            enableScripts: true,
-            localResourceRoots: [this._extensionUri],
-        };
+        webviewView.webview.options = { enableScripts: true, localResourceRoots: [this._extensionUri] };
         this._updateView();
     }
     _updateView() {
@@ -22,7 +19,6 @@ class CustomSidebarViewProvider {
     getHtmlContent(webview) {
         const diagnostics = this.getDiagnostics();
         const numProblems = diagnostics.length;
-        const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "main.js"));
         const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "reset.css"));
         const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "vscode.css"));
         const stylesheetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "main.css"));
@@ -32,7 +28,7 @@ class CustomSidebarViewProvider {
             imageUrl = webview
                 .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "0errors.png"))
                 .toString();
-            message = "you make the cat very happy!";
+            message = "You make the cat very happy!";
         }
         else if (numProblems >= 1 && numProblems < 3) {
             imageUrl = webview
@@ -44,52 +40,47 @@ class CustomSidebarViewProvider {
             imageUrl = webview
                 .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "6errors.png"))
                 .toString();
-            message = "eughh what's that...";
+            message = "Eughh what's that...";
         }
         else if (numProblems >= 6 && numProblems < 10) {
             imageUrl = webview
                 .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10errors.png"))
                 .toString();
-            message = "dude look at what you've done-";
+            message = "Dude look at what you've done-";
         }
         else {
             imageUrl = webview
                 .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10errors.png"))
                 .toString();
-            message = "uhm hello friend, just letting you know, there's code in your bugs";
+            message = "Uhm hello friend, just letting you know, there's code in your bugs";
         }
         const errorMessages = diagnostics.map((diagnostic) => {
             const lineNumber = diagnostic.range.start.line + 1;
             return `<li id="individualErrors">[Line ${lineNumber}]: ${diagnostic.message}</li>`;
         });
         const nonce = getNonce();
-        return `<!DOCTYPE html>
+        return `
+        <!DOCTYPE html>
         <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}'; img-src * data:;">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-            <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-            <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;700&display=swap" rel="stylesheet">
-
-            <link href="${styleResetUri}" rel="stylesheet">
-            <link href="${styleVSCodeUri}" rel="stylesheet">
-            
-            <link href="${stylesheetUri}" rel="stylesheet">
-            
-        </head>
-
-        <body>
-            <img src="${imageUrl}" alt="Cat face">
-            <h2>Errors: ${numProblems}</h2>
-            <p></p>
-            <h3>${message}</h3>
-            <ul id="errorMessages">
-                ${errorMessages.join("")}
-            </ul>
-        </body>
-
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}'; img-src * data:;">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+                <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;700&display=swap" rel="stylesheet">
+                <link href="${styleResetUri}" rel="stylesheet">
+                <link href="${styleVSCodeUri}" rel="stylesheet">
+                <link href="${stylesheetUri}" rel="stylesheet">
+            </head>
+            <body>
+                <img src="${imageUrl}" alt="Cat face">
+                <h2>Errors: ${numProblems}</h2>
+                <p></p>
+                <h3>${message}</h3>
+                <ul id="errorMessages">
+                    ${errorMessages.join("")}
+                </ul>
+            </body>
         </html>`;
     }
     getDiagnostics() {
