@@ -26,38 +26,34 @@ class CustomSidebarViewProvider {
         let message = "";
         if (numProblems === 0) {
             imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "0errors.png"))
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "0_error_cat.gif"))
                 .toString();
             message = "You make the cat very happy!";
         }
         else if (numProblems >= 1 && numProblems < 3) {
             imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "3errors.png"))
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "1_error_cat.gif"))
                 .toString();
             message = "(uh oh)";
         }
         else if (numProblems >= 3 && numProblems < 6) {
             imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "6errors.png"))
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "5_error_cat.gif"))
                 .toString();
             message = "Eughh what's that...";
         }
         else if (numProblems >= 6 && numProblems < 10) {
             imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10errors.png"))
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10_error_cat.gif"))
                 .toString();
             message = "Dude look at what you've done-";
         }
         else {
             imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10errors.png"))
+                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10_error_cat.gif"))
                 .toString();
             message = "Uhm hello friend, just letting you know, there's code in your bugs";
         }
-        const errorMessages = diagnostics.map((diagnostic) => {
-            const lineNumber = diagnostic.range.start.line + 1;
-            return `<li id="individualErrors">[Line ${lineNumber}]: ${diagnostic.message}</li>`;
-        });
         const nonce = getNonce();
         return `
         <!DOCTYPE html>
@@ -77,9 +73,6 @@ class CustomSidebarViewProvider {
                 <h2>Errors: ${numProblems}</h2>
                 <p></p>
                 <h3>${message}</h3>
-                <ul id="errorMessages">
-                    ${errorMessages.join("")}
-                </ul>
             </body>
         </html>`;
     }

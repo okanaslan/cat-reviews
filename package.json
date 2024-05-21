@@ -1,10 +1,10 @@
 {
-    "name": "catreview",
-    "displayName": "Cat Review",
+    "name": "catreviews",
+    "displayName": "Cat Reviews",
     "description": "Cats review your code!",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "publisher": "okanaslan",
-    "icon": "assets/0errors.png",
+    "icon": "assets/10_error_cat.gif",
     "homepage": "https://github.com/okanaslan/CatFace",
     "license": "BSD-3-Clause",
     "repository": {
@@ -12,19 +12,20 @@
         "url": "https://github.com/Sadliquid/CatFace"
     },
     "engines": {
-        "vscode": "^1.61.0"
+        "vscode": "^1.89.0"
     },
     "categories": [
         "Other"
     ],
+    "activationEvents": [],
     "main": "./out/extension.js",
     "contributes": {
         "viewsContainers": {
             "activitybar": [
                 {
                     "id": "custom-activitybar",
-                    "title": "CatFace",
-                    "icon": "assets/logo_bito.svg"
+                    "title": "Cat Reviews",
+                    "icon": "asset/logo.svg"
                 }
             ]
         },
@@ -42,27 +43,13 @@
             {
                 "command": "vscodeSidebar.openview",
                 "title": "Sidebar View"
-            },
-            {
-                "command": "vscodeSidebar.menu.view",
-                "category": "vscode-extension-sidebar-html",
-                "title": "Sample WebView in VS Code Sidebar",
-                "icon": "$(clear-all)"
             }
-        ],
-        "menus": {
-            "view/title": [
-                {
-                    "command": "vscodeSidebar.menu.view",
-                    "group": "navigation",
-                    "when": "view == vscodeSidebar.openview"
-                }
-            ]
-        }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "build": "tsc",
+        "compile": "npm run build",
         "lint": "eslint src --ext ts",
         "format": "prettier --write ."
     },
