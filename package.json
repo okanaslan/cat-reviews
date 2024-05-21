@@ -2,14 +2,14 @@
     "name": "catreviews",
     "displayName": "Cat Reviews",
     "description": "Cats review your code!",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "publisher": "okanaslan",
-    "icon": "assets/10_error_cat.gif",
+    "icon": "assets/many_error_cat.gif",
     "homepage": "https://github.com/okanaslan/CatFace",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Sadliquid/CatFace"
+        "url": "https://github.com/okanaslan/CatFace"
     },
     "engines": {
         "vscode": "^1.89.0"
@@ -25,7 +25,7 @@
                 {
                     "id": "custom-activitybar",
                     "title": "Cat Reviews",
-                    "icon": "asset/logo.svg"
+                    "icon": "asset/many_error_cat.png"
                 }
             ]
         },

@@ -1,16 +1,18 @@
-import * as vscode from "vscode";
+import { window, languages, WebviewViewProvider, WebviewView, Webview, Uri, Diagnostic } from "vscode";
 
-export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
+export class CustomSidebarViewProvider implements WebviewViewProvider {
     public static readonly viewType = "vscodeSidebar.openview";
+    readonly catImages = ["no_error_cat.gif", "a_few_error_cat.gif", "some_error_cat.gif", "many_error_cat.gif"];
+    readonly catMessages = ["Purrfection!", "You've got to be kitten me!", "Meowch!", "Are you fur real!"];
 
-    private _view?: vscode.WebviewView;
-    private _extensionUri: vscode.Uri;
+    private _view?: WebviewView;
+    private _extensionUri: Uri;
 
-    constructor(extensionUri: vscode.Uri) {
+    constructor(extensionUri: Uri) {
         this._extensionUri = extensionUri;
     }
 
-    resolveWebviewView(webviewView: vscode.WebviewView): void | Thenable<void> {
+    resolveWebviewView(webviewView: WebviewView): void | Thenable<void> {
         this._view = webviewView;
         webviewView.webview.options = { enableScripts: true, localResourceRoots: [this._extensionUri] };
         this._updateView();
@@ -22,73 +24,34 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
         }
     }
 
-    private getHtmlContent(webview: vscode.Webview): string {
-        const diagnostics = this.getDiagnostics();
-        const numProblems = diagnostics.length;
-
-        const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "reset.css"));
-        const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "vscode.css"));
-        const stylesheetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "main.css"));
-
-        let imageUrl = "";
-        let message = "";
-        if (numProblems === 0) {
-            imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "0_error_cat.gif"))
-                .toString();
-            message = "You make the cat very happy!";
-        } else if (numProblems >= 1 && numProblems < 3) {
-            imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "1_error_cat.gif"))
-                .toString();
-            message = "(uh oh)";
-        } else if (numProblems >= 3 && numProblems < 6) {
-            imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "5_error_cat.gif"))
-                .toString();
-            message = "Eughh what's that...";
-        } else if (numProblems >= 6 && numProblems < 10) {
-            imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10_error_cat.gif"))
-                .toString();
-            message = "Dude look at what you've done-";
-        } else {
-            imageUrl = webview
-                .asWebviewUri(vscode.Uri.joinPath(this._extensionUri, "assets", "10_error_cat.gif"))
-                .toString();
-            message = "Uhm hello friend, just letting you know, there's code in your bugs";
-        }
-
-        const nonce = getNonce();
+    private getHtmlContent(webview: Webview): string {
+        const numProblems = this.getDiagnostics().length;
+        const catIndex = Math.min(Math.ceil(numProblems / 5), this.catImages.length - 1);
+        const imageUrl = webview
+            .asWebviewUri(Uri.joinPath(this._extensionUri, "assets", this.catImages[catIndex]))
+            .toString();
+        const message = this.catMessages[catIndex];
 
         return `
         <!DOCTYPE html>
         <html lang="en">
             <head>
                 <meta charset="UTF-8">
-                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}'; img-src * data:;">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-                <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;700&display=swap" rel="stylesheet">
-                <link href="${styleResetUri}" rel="stylesheet">
-                <link href="${styleVSCodeUri}" rel="stylesheet">
-                <link href="${stylesheetUri}" rel="stylesheet">
             </head>
             <body>
                 <img src="${imageUrl}" alt="Cat face">
-                <h2>Errors: ${numProblems}</h2>
-                <p></p>
-                <h3>${message}</h3>
+                <h1>${message} ${numProblems} errors</h1>
             </body>
         </html>`;
     }
 
-    private getDiagnostics(): vscode.Diagnostic[] {
+    private getDiagnostics(): Diagnostic[] {
         // Get all diagnostics for the active text editor
-        const editor = vscode.window.activeTextEditor;
+        const editor = window.activeTextEditor;
         if (editor) {
             const document = editor.document;
-            return vscode.languages.getDiagnostics(document.uri);
+            return languages.getDiagnostics(document.uri);
         }
         return [];
     }
@@ -96,13 +59,4 @@ export class CustomSidebarViewProvider implements vscode.WebviewViewProvider {
     public updateView() {
         this._updateView();
     }
-}
-
-function getNonce() {
-    let text = "";
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (let i = 0; i < 32; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
 }
