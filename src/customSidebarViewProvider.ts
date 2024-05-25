@@ -2,8 +2,22 @@ import { window, languages, WebviewViewProvider, WebviewView, Webview, Uri, Diag
 
 export class CustomSidebarViewProvider implements WebviewViewProvider {
     public static readonly viewType = "vscodeSidebar.openview";
-    readonly catImages = ["no_error_cat.gif", "a_few_error_cat.gif", "some_error_cat.gif", "many_error_cat.gif"];
-    readonly catMessages = ["Purrfection!", "You've got to be kitten me!", "Meowch!", "Are you fur real!"];
+    readonly catImages = [
+        ["lvl1cat1", "lvl1cat2", "lvl1cat3", "lvl1cat4", "lvl1cat5"],
+        ["lvl2cat1", "lvl2cat2", "lvl2cat3", "lvl2cat4", "lvl2cat5"],
+        ["lvl3cat1", "lvl3cat2", "lvl3cat3", "lvl3cat4", "lvl3cat5"],
+        ["lvl4cat1", "lvl4cat2", "lvl4cat3", "lvl4cat4", "lvl4cat5"],
+        ["lvl5cat1", "lvl5cat2", "lvl5cat3", "lvl5cat4"],
+        ["lvl6cat1", "lvl6cat2"],
+    ];
+    readonly catMessages = [
+        "Purrfection!",
+        "You've got to be kitten me!",
+        "Meowch!",
+        "Purrhaps you could refactor this!",
+        "This is a catastrophe!",
+        "Are you fur real!",
+    ];
 
     private _view?: WebviewView;
     private _extensionUri: Uri;
@@ -27,8 +41,10 @@ export class CustomSidebarViewProvider implements WebviewViewProvider {
     private getHtmlContent(webview: Webview): string {
         const numProblems = this.getDiagnostics().length;
         const catIndex = Math.min(Math.ceil(numProblems / 5), this.catImages.length - 1);
+        const levelCats = this.catImages[catIndex];
+        const randomCat = levelCats[Math.floor(Math.random() * levelCats.length)];
         const imageUrl = webview
-            .asWebviewUri(Uri.joinPath(this._extensionUri, "assets", this.catImages[catIndex]))
+            .asWebviewUri(Uri.joinPath(this._extensionUri, "assets", `${randomCat}.gif`))
             .toString();
         const message = this.catMessages[catIndex];
 
@@ -41,7 +57,7 @@ export class CustomSidebarViewProvider implements WebviewViewProvider {
             </head>
             <body>
                 <img src="${imageUrl}" alt="Cat face">
-                <h1>${message} ${numProblems} errors</h1>
+                <h1>${message}</h1>
             </body>
         </html>`;
     }

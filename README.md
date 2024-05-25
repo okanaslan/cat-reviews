@@ -15,3 +15,7 @@ Cat Reviews - Cats review your code and give you feedback on your code quality!
 ### 1.2.0
 
 -   Simplified cat reviews
+
+### 1.3.0
+
+-   Added more cats to the review process

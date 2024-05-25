@@ -2,14 +2,14 @@
     "name": "catreviews",
     "displayName": "Cat Reviews",
     "description": "Cats review your code!",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "publisher": "okanaslan",
-    "icon": "assets/many_error_cat.gif",
-    "homepage": "https://github.com/okanaslan/CatFace",
+    "icon": "assets/lvl6cat1.gif",
+    "homepage": "https://github.com/okanaslan/cat-reviews",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/okanaslan/CatFace"
+        "url": "https://github.com/okanaslan/cat-reviews"
     },
     "engines": {
         "vscode": "^1.89.0"
