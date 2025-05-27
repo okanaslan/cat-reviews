@@ -2,7 +2,7 @@
     "name": "catreviews",
     "displayName": "Cat Reviews",
     "description": "Cats review your code!",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "publisher": "okanaslan",
     "icon": "assets/lvl6cat1.gif",
     "homepage": "https://github.com/okanaslan/cat-reviews",
@@ -12,20 +12,20 @@
         "url": "https://github.com/okanaslan/cat-reviews"
     },
     "engines": {
-        "vscode": "^1.89.0"
+        "vscode": "^1.100.0"
     },
     "categories": [
         "Other"
     ],
     "activationEvents": [],
-    "main": "./out/extension.js",
+    "main": "./dist/extension.js",
     "contributes": {
         "viewsContainers": {
             "activitybar": [
                 {
                     "id": "custom-activitybar",
                     "title": "Cat Reviews",
-                    "icon": "asset/many_error_cat.png"
+                    "icon": "assets/lvl6cat1.gif"
                 }
             ]
         },
@@ -34,32 +34,36 @@
                 {
                     "type": "webview",
                     "id": "vscodeSidebar.openview",
-                    "name": "View",
-                    "contextualTitle": "View"
+                    "name": "Reviewing...",
+                    "icon": "assets/lvl6cat1.gif",
+                    "contextualTitle": "😺"
                 }
             ]
         },
         "commands": [
             {
-                "command": "vscodeSidebar.openview",
-                "title": "Sidebar View"
+                "command": "catReviews.openCatReviews",
+                "category": "Cat Reviews",
+                "title": "Open Cat Reviews"
             }
         ]
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
+        "vscode:prepublish": "npm run build",
         "build": "tsc",
-        "compile": "npm run build",
         "lint": "eslint src --ext ts",
         "format": "prettier --write ."
     },
     "devDependencies": {
-        "@types/node": "20.x",
-        "@types/vscode": "^1.89.0",
-        "@typescript-eslint/eslint-plugin": "^7.8.0",
-        "@typescript-eslint/parser": "^7.8.0",
-        "eslint": "^8.56.0",
-        "prettier": "^3.2.5",
-        "typescript": "^5.4.5"
+        "@types/node": "22.x",
+        "@types/vscode": "^1.100.0",
+        "@typescript-eslint/eslint-plugin": "^8.32.1",
+        "@typescript-eslint/parser": "^8.32.1",
+        "eslint": "^9.27.0",
+        "prettier": "^3.5.3",
+        "typescript": "^5.8.3"
+    },
+    "dependencies": {
+        "vscode-uri": "^3.1.0"
     }
 }

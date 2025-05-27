@@ -1,4 +1,5 @@
-import { window, languages, WebviewViewProvider, WebviewView, Webview, Uri, Diagnostic } from "vscode";
+import { URI, Utils } from "vscode-uri";
+import { window, languages, WebviewViewProvider, WebviewView, Webview, Diagnostic } from "vscode";
 
 export class CustomSidebarViewProvider implements WebviewViewProvider {
     public static readonly viewType = "vscodeSidebar.openview";
@@ -20,9 +21,9 @@ export class CustomSidebarViewProvider implements WebviewViewProvider {
     ];
 
     private _view?: WebviewView;
-    private _extensionUri: Uri;
+    private _extensionUri: URI;
 
-    constructor(extensionUri: Uri) {
+    constructor(extensionUri: URI) {
         this._extensionUri = extensionUri;
     }
 
@@ -35,18 +36,21 @@ export class CustomSidebarViewProvider implements WebviewViewProvider {
     private _updateView() {
         if (this._view) {
             this._view.webview.html = this.getHtmlContent(this._view.webview);
+            const message = this.getMessage();
+            this._view.title = `${message}`;
         }
     }
 
     private getHtmlContent(webview: Webview): string {
-        const numProblems = this.getDiagnostics().length;
-        const catIndex = Math.min(Math.ceil(numProblems / 5), this.catImages.length - 1);
-        const levelCats = this.catImages[catIndex];
-        const randomCat = levelCats[Math.floor(Math.random() * levelCats.length)];
+        const errorCount = this.getErrorCount();
+
+        const catIndex = Math.min(Math.ceil(errorCount / 5), this.catImages.length - 1);
+        const catGroup = this.catImages[catIndex];
+        const randomCat = catGroup[Math.floor(Math.random() * catGroup.length)];
+
         const imageUrl = webview
-            .asWebviewUri(Uri.joinPath(this._extensionUri, "assets", `${randomCat}.gif`))
+            .asWebviewUri(Utils.joinPath(this._extensionUri, "assets", `${randomCat}.gif`))
             .toString();
-        const message = this.catMessages[catIndex];
 
         return `
         <!DOCTYPE html>
@@ -57,19 +61,25 @@ export class CustomSidebarViewProvider implements WebviewViewProvider {
             </head>
             <body>
                 <img src="${imageUrl}" alt="Cat face">
-                <h1>${message}</h1>
             </body>
         </html>`;
     }
 
-    private getDiagnostics(): Diagnostic[] {
+    private getMessage(): string {
+        const errorCount = this.getErrorCount();
+        const catIndex = Math.min(Math.ceil(errorCount / 5), this.catImages.length - 1);
+        const message = this.catMessages[catIndex];
+        return message;
+    }
+
+    getErrorCount(): number {
         // Get all diagnostics for the active text editor
         const editor = window.activeTextEditor;
         if (editor) {
             const document = editor.document;
-            return languages.getDiagnostics(document.uri);
+            return languages.getDiagnostics(document.uri).length;
         }
-        return [];
+        return 0;
     }
 
     public updateView() {

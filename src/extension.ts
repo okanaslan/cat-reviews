@@ -1,18 +1,21 @@
-import * as vscode from "vscode";
+import { commands, window, languages, ExtensionContext, Diagnostic } from "vscode";
 import { CustomSidebarViewProvider } from "./customSidebarViewProvider";
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
     const provider = new CustomSidebarViewProvider(context.extensionUri);
-    const openWebView = vscode.commands.registerCommand("vscodeSidebar.openview", () => {
-        vscode.window.showInformationMessage('Command " Sidebar View [vscodeSidebar.openview] " called.');
+
+    // Command to open the sidebar
+    const openWebView = commands.registerCommand("catReviews.openview", async () => {
+        await commands.executeCommand("workbench.view.extension.custom-activitybar");
     });
 
     context.subscriptions.push(openWebView);
-    context.subscriptions.push(vscode.window.registerWebviewViewProvider(CustomSidebarViewProvider.viewType, provider));
+    context.subscriptions.push(window.registerWebviewViewProvider(CustomSidebarViewProvider.viewType, provider));
 
-    vscode.languages.onDidChangeDiagnostics(() => {
+    const diagnosticsListener = languages.onDidChangeDiagnostics(() => {
         provider.updateView();
     });
+    context.subscriptions.push(diagnosticsListener);
 }
 
 export function deactivate() {}
