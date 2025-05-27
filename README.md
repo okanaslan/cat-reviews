@@ -24,3 +24,7 @@ Cat Reviews - Cats review your code and give you feedback on your code quality!
 
 - Smaller review messages
 - Better naming conventions
+
+### 1.5.0
+
+- Cats are now square and smaller
