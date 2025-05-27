@@ -4,11 +4,11 @@ import { window, languages, WebviewViewProvider, WebviewView, Webview, Diagnosti
 export class CustomSidebarViewProvider implements WebviewViewProvider {
     public static readonly viewType = "vscodeSidebar.openview";
     readonly catImages = [
-        ["lvl1cat1", "lvl1cat2", "lvl1cat3", "lvl1cat4", "lvl1cat5"],
-        ["lvl2cat1", "lvl2cat2", "lvl2cat3", "lvl2cat4", "lvl2cat5"],
-        ["lvl3cat1", "lvl3cat2", "lvl3cat3", "lvl3cat4", "lvl3cat5"],
-        ["lvl4cat1", "lvl4cat2", "lvl4cat3", "lvl4cat4", "lvl4cat5"],
-        ["lvl5cat1", "lvl5cat2", "lvl5cat3", "lvl5cat4"],
+        ["lvl1cat1", "lvl1cat2", "lvl1cat3", "lvl1cat4"],
+        ["lvl2cat1", "lvl2cat2", "lvl2cat3", "lvl2cat4"],
+        ["lvl3cat1", "lvl3cat2", "lvl3cat3", "lvl3cat4"],
+        ["lvl4cat1", "lvl4cat2", "lvl4cat3", "lvl4cat4"],
+        ["lvl5cat1", "lvl5cat2", "lvl5cat3"],
         ["lvl6cat1", "lvl6cat2"],
     ];
     readonly catMessages = [
