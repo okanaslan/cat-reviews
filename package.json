@@ -2,7 +2,7 @@
     "name": "catreviews",
     "displayName": "Cat Reviews",
     "description": "Cats review your code!",
-    "version": "1.4.1",
+    "version": "1.5.0",
     "publisher": "okanaslan",
     "icon": "assets/lvl6cat1.gif",
     "homepage": "https://github.com/okanaslan/cat-reviews",
