@@ -5,7 +5,7 @@ export function activate(context: ExtensionContext) {
     const provider = new CustomSidebarViewProvider(context.extensionUri);
 
     // Command to open the sidebar
-    const openWebView = commands.registerCommand("catReviews.openview", async () => {
+    const openWebView = commands.registerCommand("catReviews.openCatReviews", async () => {
         await commands.executeCommand("workbench.view.extension.custom-activitybar");
     });
 
