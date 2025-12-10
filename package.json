@@ -25,7 +25,7 @@
                 {
                     "id": "custom-activitybar",
                     "title": "Cat Reviews",
-                    "icon": "assets/lvl6cat1.gif"
+                    "icon": "assets/icon.svg"
                 }
             ]
         },
@@ -35,7 +35,7 @@
                     "type": "webview",
                     "id": "vscodeSidebar.openview",
                     "name": "Reviewing...",
-                    "icon": "assets/lvl6cat1.gif",
+                    "icon": "assets/icon.svg",
                     "contextualTitle": "😺"
                 }
             ]
