@@ -28,3 +28,7 @@ Cat Reviews - Cats review your code and give you feedback on your code quality!
 ### 1.5.0
 
 - Cats are now square and smaller
+
+### 1.5.1
+
+- @mokotanin: Added SVG icon to activity bar
